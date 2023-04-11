@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import lombok.val;
-
 @DataJpaTest
 @ActiveProfiles("test")
 public class CourseTest {
@@ -21,7 +19,7 @@ public class CourseTest {
      */
     @Test
     public void testCrud() {
-        var orgCourse = new Course();
+        Course orgCourse = new Course();
         orgCourse.setDept("SE");
         orgCourse.setNum("452");
         long b4Count = repo.count();
@@ -38,8 +36,8 @@ public class CourseTest {
 
         // Scenario of updating cross listing
         // Be sure to find the reference from the database before the update
-        var updated = repo.findById(afterId).orElse(new Course());
-        val crossListed = "352-452";
+        Course updated = repo.findById(afterId).orElse(new Course());
+        String crossListed = "352-452";
         updated.setNum(crossListed);
         repo.save(updated);
 
