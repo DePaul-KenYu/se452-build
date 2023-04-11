@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import edu.depaul.cdm.se452.se452demo.concepts.lombok.Student;
-import lombok.var;
 
 @RestController
 @RequestMapping("/api/nondb/students")
@@ -24,13 +23,13 @@ public class StandaloneStudentService {
     private static Map<Integer, Student> STUDENTS = new HashMap<Integer, Student>();
 
     static {
-        var stu1 = new Student();
+        Student stu1 = new Student();
         stu1.setStudentId(getNextKeyValue());
         stu1.setFirstName("James");
         stu1.setLastName("Bond");
         STUDENTS.put(stu1.getStudentId(), stu1);
 
-        var stu2 = new Student();
+        Student stu2 = new Student();
         stu2.setStudentId(getNextKeyValue());
         stu2.setFirstName("Daniel");
         stu2.setLastName("Craig");
