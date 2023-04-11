@@ -35,11 +35,11 @@ jobs:
       with:
         arguments: build
     # Build Push Action from https://github.com/marketplace/actions/docker-build-push-action        
-    - uses: mr-smithers-excellent/docker-build-push@v5
-      name: Build & push Docker image
-      with:
-        image: depaulkenyu/se452-demo-app
-        tags: v1, latest
-        registry: docker.io
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}        
+    #- uses: mr-smithers-excellent/docker-build-push@v5
+    #  name: Build & push Docker image
+    #  with:
+    #    image: depaulkenyu/se452-demo-app
+    #    tags: v1, latest
+    #    registry: docker.io
+    #    username: ${{ secrets.DOCKER_USERNAME }}
+    #    password: ${{ secrets.DOCKER_PASSWORD }}        
