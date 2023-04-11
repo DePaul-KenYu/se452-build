@@ -11,7 +11,7 @@ public class StudentTest {
         student.setFirstName("James");
         student.setLastName("Bond");
         var expectedWithError = "";
-        var expectedNoError = "Student(studentId=null, firstName=James, lastName=Bond)";
+        var expectedNoError = "Student(studentId=0, firstName=James, lastName=Bond)";
         assertEquals(expectedNoError, student.toString());
     }    
 }

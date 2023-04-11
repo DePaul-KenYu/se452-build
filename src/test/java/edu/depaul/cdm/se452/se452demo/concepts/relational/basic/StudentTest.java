@@ -1,48 +1,48 @@
 package edu.depaul.cdm.se452.se452demo.concepts.relational.basic;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.jdbc.Sql;
 
-@SpringBootTest
+@DataJpaTest
+@ActiveProfiles("test")
+@Sql({"/data-h2-test.sql"})
 public class StudentTest {
     @Autowired
     private StudentRepository repo;
 
-    @BeforeEach
-    public void addStudents() {
-        var student1 = new Student();
-        student1.setName("James");
-        student1.setAge(18);
-        repo.save(student1);
-
-        var student2 = new Student();
-        student2.setName("Daniel");
-        student2.setAge(22);
-        repo.save(student2);
-
-
-        var student3 = new Student();
-        student3.setName("Mac");
-        student3.setAge(10);
-        repo.save(student3);
-
-    }
-
-
     @Test
-    public void addStudentsAndFindById() {
+    public void testFindByAgeLessThanEqual() {
         long count = repo.count();
         List<Student> lessThanDrinking = repo.findByAgeLessThanEqual(21);
 
-        assertNotEquals(0, count);
-        assertEquals(2, lessThanDrinking.size());
+        assertEquals(4, count);
+        assertEquals(3, lessThanDrinking.size());
 
     }
+
+    @Test
+    public void testFindByName() {
+        List<Student> findJames = repo.findByName("James");
+        List<Student> findNoOne = repo.findByName("NoOne");
+
+        assertEquals(1, findJames.size());
+        assertEquals(0, findNoOne.size());
+
+    }
+
+    @Test
+    public void testFindByLike() {
+        List<Student> findJa = repo.findByNameLike("Ja%");
+
+        assertEquals(2, findJa.size());
+    }
+
+
 }

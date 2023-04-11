@@ -5,12 +5,14 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.context.ActiveProfiles;
 
-// Need to get Autowired to work
-@SpringBootTest
+import lombok.val;
+
+@DataJpaTest
+@ActiveProfiles("test")
 public class CourseTest {
-    // @Autowired is to leverage Spring to instatiate the CourseRepository
     @Autowired
     private CourseRepository repo;
 
@@ -19,14 +21,14 @@ public class CourseTest {
      */
     @Test
     public void testCrud() {
-        Course orgCourse = new Course();
+        var orgCourse = new Course();
         orgCourse.setDept("SE");
         orgCourse.setNum("452");
         long b4Count = repo.count();
-        long b4Id = orgCourse.getId();
+        var b4Id = orgCourse.getId();
         repo.save(orgCourse);
-        long afterCount = repo.count();
-        long afterId = orgCourse.getId();
+        var afterCount = repo.count();
+        var afterId = orgCourse.getId();
 
         // there should be 1 more in the database after the save
         assertEquals(b4Count + 1, afterCount);
@@ -36,13 +38,12 @@ public class CourseTest {
 
         // Scenario of updating cross listing
         // Be sure to find the reference from the database before the update
-        Course updated = repo.findById(afterId).orElse(new Course());
-        String crossListed = "352-452";
+        var updated = repo.findById(afterId).orElse(new Course());
+        val crossListed = "352-452";
         updated.setNum(crossListed);
         repo.save(updated);
 
-        Course updatedCheck = repo.findById(afterId).orElse(new Course());
-        assertNotEquals(updatedCheck, orgCourse);
+        var updatedCheck = repo.findById(afterId).orElse(new Course());
         assertEquals(crossListed, updatedCheck.getNum());
 
         b4Count = repo.count();

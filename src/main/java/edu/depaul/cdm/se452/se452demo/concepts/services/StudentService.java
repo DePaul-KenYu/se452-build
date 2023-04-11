@@ -2,15 +2,13 @@ package edu.depaul.cdm.se452.se452demo.concepts.services;
 
 import java.util.List;
 
-import jakarta.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +17,7 @@ import edu.depaul.cdm.se452.se452demo.concepts.relational.basic.StudentRepositor
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-@RequestMapping("/api/students")
+@RequestMapping("/api/db/students")
 @Log4j2
 public class StudentService {
     @Autowired
@@ -27,48 +25,51 @@ public class StudentService {
 
     @GetMapping
     public List<Student> list() {
-        log.traceEntry("Enter list");
+        log.traceEntry("list");
         var retval = repo.findAll();
-        log.traceExit("Exit list", retval);
+        log.traceExit("list");
         return retval;
     }
 
-    @PostMapping
-    public Student save(@RequestBody Student student) {
-        log.traceEntry("enter save", student);
-        repo.save(student);
-        log.traceExit("exit save", student);
+    @GetMapping("/{id}")
+    public Student get(@PathVariable("id") Long studentId) {
+        log.traceEntry("get", studentId);
+        Student student = repo.findById(studentId).orElse(new Student());
+        log.traceExit("get", studentId);
         return student;
     }
 
-    @PostMapping("/valid")
-    public ResponseEntity<Student> saveValidated(@Valid @RequestBody Student student) {
-        log.traceEntry("enter save", student);
+    @PostMapping
+    public long add(Student student) {
+        log.traceEntry("add", student);        
         repo.save(student);
-        log.traceExit("exit save", student);
-        return ResponseEntity.ok(student);
+        log.traceExit("add", student);
+        return student.getId();
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id ) {
-        log.traceEntry("Enter delete", id);
+    public void delete(@PathVariable("id") Long id) {
+        log.traceEntry("delete", id);        
         repo.deleteById(id);
-        log.traceExit("Exit delete");
-    }           
+        log.traceExit("delete", id);        
+    }
 
-/* 
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    public Map<String, String> handleValidationExceptions(
-      MethodArgumentNotValidException ex) {
-        Map<String, String> errors = new HashMap<>();
-        ex.getBindingResult().getAllErrors().forEach((error) -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errors.put(fieldName, errorMessage);
-        });
-        return errors;
-    }    
-    */
+    @PutMapping
+    public void update(Student student) {
+        log.traceEntry("update", student);        
 
+        // find the student from database
+        var repoStudent = get(student.getId());
+
+        // update the values for student in database to value that was passed
+        repoStudent.setAge(student.getAge());
+        repoStudent.setEmail(student.getEmail());
+        repoStudent.setAdmittedDate(student.getAdmittedDate());
+        repoStudent.setName(student.getName());
+        repoStudent.setStudentId(student.getStudentId());
+
+        // save the updated value
+        repo.save(repoStudent);      
+        log.traceExit("update", student);        
+    }
 }

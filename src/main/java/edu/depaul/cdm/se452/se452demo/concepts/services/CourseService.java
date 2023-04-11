@@ -33,7 +33,7 @@ import lombok.extern.log4j.Log4j2;
  * Documented services
  */
 @RestController
-@RequestMapping("/api/course")
+@RequestMapping("/api/courses")
 @Tag(name = "Course", description = "Everything about your Course")
 @Log4j2
 public class CourseService {

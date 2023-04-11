@@ -8,8 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Min;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,11 +35,8 @@ public class Student {
 	@Column(name = "nm")
 	private String name;
 
-	@Email(regexp = ".+[@].+[\\.].+")
 	private String email;
 
-	@Min(value = 10, message = "Should be older than 10")
-	// @Max(value = 30, message = "Should be younger than 30")	
 	private long age;
 	private Date admittedDate;
 }
