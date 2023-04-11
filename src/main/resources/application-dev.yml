@@ -1,0 +1,23 @@
+environment: development
+
+logging:
+  level:
+    root: INFO
+    edu.depaul.cdm.se452.se452demo.concepts.relational.relationship.university: TRACE
+    org.springframework.web.filter.CommonsRequestLoggingFilter: TRACE
+
+spring:
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    defer-datasource-initialization: true
+  datasource:
+    url: jdbc:h2:mem:se452dev
+
+
+
+
+# spring.datasource.data = classpath:/data.sql
+#spring.datasource.schema = classpath:/schema.sql
+#jpa:
+#  hibernate.ddl-auto: create-drop    #always recreate table in test      
