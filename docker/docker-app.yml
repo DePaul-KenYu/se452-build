@@ -7,7 +7,7 @@ version: '3.8'
 services:
     app:
         container_name: demo-app
-        image: depaulkenyu/se452-demo-app
+        image: depaulkenyu/se452-demo-app:latest
         env_file: ./.env
         ports:
             - "$SPRING_LOCAL_PORT:$SPRING_DOCKER_PORT"
