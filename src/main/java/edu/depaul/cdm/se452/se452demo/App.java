@@ -22,7 +22,7 @@ public class App {
 	public CommandLineRunner showLogLevel() {
 		return (args) -> {
 			System.out.println(env);
-			log.debug("Debug2");
+			log.debug("Debug");
 			log.info("Info");
 			log.warn("Warning");
 			log.error("Error");
