@@ -34,7 +34,7 @@ import lombok.extern.log4j.Log4j2;
  */
 @RestController
 @RequestMapping("/api/courses")
-@Tag(name = "Course", description = "Everything about your Course and then some")
+@Tag(name = "Course", description = "Everything about your Course and but not others")
 @Log4j2
 public class CourseService {
     @Autowired
