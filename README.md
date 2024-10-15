@@ -1,5 +1,5 @@
 # Concept
-Base to introduce to start on tools
+Base to introduce to start on tools for CI-CD along with integration with Docker
 
 ## 12 Factor concepts [* indicates new]
 
