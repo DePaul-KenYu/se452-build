@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>edu.depaul.cdm.se452</groupId>
-	<artifactId>rdbms-starter-demo</artifactId>
+	<artifactId>build-starter-demo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>build-starter-demo</name>
 	<description>CI/CD demo</description>
