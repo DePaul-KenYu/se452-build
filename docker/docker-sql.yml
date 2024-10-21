@@ -2,7 +2,6 @@
 #start:   docker-compose -f docker-sql.yml up -d
 #stop:    docker-compse -f docker-sql.yml down
 
-version: '3.8'
 services:
     sql:
         container_name: demo-postgres

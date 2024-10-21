@@ -2,8 +2,6 @@
 #start:   docker-compose up -d
 #stop:    docker-compse down
 
-version: '3.8'
-
 services:
     app:
         container_name: demo-app
